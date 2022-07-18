@@ -1,0 +1,65 @@
+server:
+  port: 9000
+spring:
+  application:
+    name: client-service
+  cloud:
+    config:
+      discovery:        enabled: true
+        service-id: config-server
+  main:
+     allow-bean-definition-overriding: true
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    database: MYSQL
+    hibernate:
+      ddl-auto: update
+  datasource:
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/clients_db?useUnicode=true&characterEncoding=utf8&serverTimezone=UTC
+    username: root
+    password: admin
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://peer-1-server.com:8761/eureka, http://peer-2-server.com:8762/eureka
+  instance:    prefer-ip-address: true
+    #enabled: false
+   
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  info:
+    env:
+      enabled: true
+
+info:
+  application:
+    name: '@project.name@'
+    version: '@project.version@'
+
+logging:
+  level: 
+    '[com.netflix.eureka]': ERROR
+    '[com.netflix.discovery]': ERROR
+    '[com.netflix.discovery.shared.resolver.aws]': ERROR
+---
+spring:
+  profiles: test
+  cloud:    config:
+      enabled: false
+      discovery:
+        enabled: false
+  datasource:
+        url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+        username: sa
+        password: sa
+        driver-class-name: org.h2.Driver
+  jpa:
+        database-platform: org.hibernate.dialect.H2Dialect
+        hibernate :
+          ddl-auto: create
+
+eureka:  client:    enabled: false
