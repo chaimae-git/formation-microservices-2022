@@ -10,6 +10,17 @@ spring:
     url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/clients_db?useUnicode=true&characterEncoding=utf8&serverTimezone=UTC
     username: root
     password: admin
+    
+springdoc:  packages-to-scan:  - ma.omnishore.clients.api  
+    
+swagger:
+  title: CLIENT SERVICE
+  description: This page lists all the rest apis for Clients APP.
+  version: 0.0.1
+  contact-name: Amine BOUAGGAD
+  contact-url: www.omnidata.ma
+  contact-email: abouaggad@omnidata.ma
+
 
 ---
 spring:
