@@ -1,6 +1,8 @@
 server:
   port: 9000
 spring:
+  application:
+    name: client-service
   jpa:
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     database: MYSQL
@@ -30,7 +32,11 @@ swagger:
   contact-url: www.omnidata.ma
   contact-email: abouaggad@omnidata.ma
 
-
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
+      
 ---
 spring:
   profiles: test
