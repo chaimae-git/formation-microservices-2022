@@ -11,6 +11,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import ma.omnishore.clients.api.ClientController;
+import ma.omnishore.clients.config.WithMockOAuth2Conext;
 import ma.omnishore.clients.domain.Client;
  
 @ExtendWith(SpringExtension.class)
@@ -22,6 +23,7 @@ class ClientIntegrationTests {
   ClientController clientController;
  
   @Test
+  @WithMockOAuth2Conext(authorities = "user")
   void testCreateReadDelete() {
 	  Client client = new Client("BOUAGGAD", "Amine", "abouaggad@omnidata.ma", "Casablanca");
  

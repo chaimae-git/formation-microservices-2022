@@ -11,11 +11,14 @@ import java.util.List;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.keycloak.adapters.springboot.KeycloakSpringBootConfigResolver;
+import org.keycloak.adapters.springsecurity.KeycloakSecurityComponents;
 import org.mockito.Mockito;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -26,11 +29,13 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import com.google.gson.Gson;
 
+import ma.omnishore.clients.config.WithMockOAuth2Conext;
 import ma.omnishore.clients.domain.Client;
 import ma.omnishore.clients.service.IClientService;
 
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(ClientController.class)
+@ComponentScan(basePackageClasses = { KeycloakSecurityComponents.class, KeycloakSpringBootConfigResolver.class })
 @ActiveProfiles("test")
 class ClientControllerTest {
 
@@ -43,6 +48,7 @@ class ClientControllerTest {
 	private final Gson gson = new Gson();
 
 	@Test
+	@WithMockOAuth2Conext(authorities = "user")
 	void testfindAll() throws Exception {
 		Client client = new Client("BOUAGGAD", "Amine", "abouaggad@omnidata.ma", "Casablanca");
 		List<Client> clients = Arrays.asList(client);
@@ -54,6 +60,7 @@ class ClientControllerTest {
 	}
 
 	@Test
+	@WithMockOAuth2Conext(authorities = "user")
 	void testGetClient() throws Exception {
 		Client client1 = new Client("Test1", "Test1", "test1@test.ma", "Address 1");
 		client1.setId(1L);
@@ -67,6 +74,7 @@ class ClientControllerTest {
 	}
 
 	@Test
+	@WithMockOAuth2Conext(authorities = "user")
 	void testCreateClient() throws Exception {
 		Client client1 = new Client("Test1", "Test1", "test1@test.ma", "Address 1");
 
@@ -80,6 +88,7 @@ class ClientControllerTest {
 	}
 
 	@Test
+	@WithMockOAuth2Conext(authorities = "user")
 	void testUpdateClient() throws Exception {
 		Client client1 = new Client("Test1", "Test1", "test1@test.ma", "Address 1");
 		client1.setId(1L);
@@ -97,6 +106,7 @@ class ClientControllerTest {
 	}
 
 	@Test
+	@WithMockOAuth2Conext(authorities = "user")
 	void testDeleteClient() throws Exception {
 
 		Mockito.doNothing().when(clientService).deleteClient(1L);
