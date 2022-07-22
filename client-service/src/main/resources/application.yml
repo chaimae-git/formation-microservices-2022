@@ -11,6 +11,15 @@ spring:
     username: root
     password: admin
     
+keycloak:
+  realm: formation-ms
+  auth-server-url: http://localhost:8080/
+  resource: client-app
+  credentials:
+    secret: hc70O82rqp0TcFFwFFjOnb7kTs1doAoS
+  principal-attribute: preferred_username
+  bearer-only: true
+    
 springdoc:  packages-to-scan:  - ma.omnishore.clients.api  
     
 swagger:
