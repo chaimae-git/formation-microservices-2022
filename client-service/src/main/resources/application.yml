@@ -12,7 +12,12 @@ spring:
     url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/clients_db?useUnicode=true&characterEncoding=utf8&serverTimezone=UTC
     username: root
     password: admin
-    
+  zipkin:
+    baseUrl: http://localhost:9411
+  sleuth:
+    sampler:
+      probability: 1.0  
+          
 keycloak:
   realm: formation-ms
   auth-server-url: http://localhost:8080/
