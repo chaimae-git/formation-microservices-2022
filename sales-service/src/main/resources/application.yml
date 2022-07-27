@@ -1,8 +1,6 @@
 server:
   port: 9011
 spring:
-  application:
-    name: sales-service
   jpa:
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     database: MYSQL
