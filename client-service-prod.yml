@@ -1,0 +1,58 @@
+server:
+  port: 9100
+spring:
+  application:
+    name: client-service
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    database: MYSQL
+    hibernate:
+      ddl-auto: update
+  datasource:
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/clients_db?useUnicode=true&characterEncoding=utf8&serverTimezone=UTC
+    username: root
+    password: admin
+  zipkin:
+    baseUrl: http://localhost:9411
+  sleuth:
+    sampler:
+      probability: 1.0
+          
+keycloak:
+  realm: formation-ms
+  auth-server-url: http://localhost:8080/
+  resource: client-app
+  credentials:
+    secret: hc70O82rqp0TcFFwFFjOnb7kTs1doAoS
+  principal-attribute: preferred_username
+  bearer-only: true
+    
+springdoc:  packages-to-scan:  - ma.omnishore.clients.api  
+    
+swagger:
+  title: CLIENT SERVICE
+  description: This page lists all the rest apis for Clients APP.
+  version: 0.0.1
+  contact-name: Amine BOUAGGAD
+  contact-url: www.omnidata.ma
+  contact-email: abouaggad@omnidata.ma
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
+      
+---
+spring:
+  profiles: test
+  datasource:
+        url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+        username: sa
+        password: sa
+        driver-class-name: org.h2.Driver
+  jpa:
+        database-platform: org.hibernate.dialect.H2Dialect
+        hibernate :
+          ddl-auto: create
