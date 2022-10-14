@@ -1,5 +1,5 @@
 server:
-  port: 9000
+  port: 9900
 spring:
   application:
     name: client-service
@@ -27,7 +27,9 @@ keycloak:
   principal-attribute: preferred_username
   bearer-only: true
     
-springdoc:  packages-to-scan:  - ma.omnishore.clients.api  
+springdoc:
+  packages-to-scan:
+  - ma.omnishore.clients.api  
     
 swagger:
   title: CLIENT SERVICE
